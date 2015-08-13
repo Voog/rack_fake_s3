@@ -171,7 +171,7 @@ module RackFakeS3
           end
         else
           File.open(content,'wb') do |f|
-            request.body do |chunk|
+            request.body.each do |chunk|
               f << chunk
               md5 << chunk
             end
