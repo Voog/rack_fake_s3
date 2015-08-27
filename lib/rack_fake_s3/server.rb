@@ -177,6 +177,7 @@ module RackFakeS3
       response.status = 200
       response.write ""
       response['Content-Type'] = "text/xml"
+      response['Access-Control-Allow-Origin'] = '*'
     end
 
     def do_POST(request,response)
@@ -216,7 +217,7 @@ module RackFakeS3
          end
        end
        response['Content-Type'] = 'text/xml'
-       response['Access-Control-Allow-Origin']='*'
+       response['Access-Control-Allow-Origin'] = '*'
      end
 
     def do_DELETE(s_req,response)
@@ -234,7 +235,9 @@ module RackFakeS3
     end
 
     def do_OPTIONS(request, response)
-      response["Access-Control-Allow-Origin"]="*"
+      response['Access-Control-Allow-Origin'] = '*'
+      response['Access-Control-Allow-Methods'] = 'GET,POST,PUT'
+      response['Access-Control-Allow-Headers'] = request.rack_request.env['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']
     end
 
     private
